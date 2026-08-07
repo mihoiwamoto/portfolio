@@ -81,17 +81,11 @@ const fragment = `
     vec3 colLav = uColor1;
     vec3 colOrg = uColor2;
     vec3 colDark = uColor3;
-    float b = uColorBalance;
-    float s = max(uBlendSoftness, 0.0);
-    mat2 blendRot = Rot(radians(uBlendAngle));
-    float blendX = (tuv * blendRot).x;
-    float edge0 = -0.3 - b - s;
-    float edge1 = 0.2 - b + s;
-    float v0 = 0.5 - b + s;
-    float v1 = -0.3 - b - s;
-    vec3 layer1 = mix(colDark, colOrg, S(edge0, edge1, blendX));
-    vec3 layer2 = mix(colOrg, colLav, S(edge0, edge1, blendX));
-    vec3 col = mix(layer1, layer2, S(v0, v1, tuv.y));
+
+    // Simple gradient blend
+    float t = tuv.y * 0.5 + 0.5;
+    vec3 col = mix(colDark, colOrg, t);
+    col = mix(col, colLav, abs(sin(tuv.x * 2.0)));
 
     vec2 grainUv = uv * max(uGrainScale, 0.001);
     if (uGrainAnimated > 0.5) {
@@ -323,8 +317,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (bg) {
     window.grainient = initGrainient('#color-bends-bg', {
       timeSpeed: 0.8,
-      colorBalance: -0.28,
-      warpStrength: 0,
+      colorBalance: 0.5,
+      warpStrength: 0.5,
       warpFrequency: 8.8,
       warpSpeed: 2.0,
       warpAmplitude: 50.0,
@@ -335,15 +329,15 @@ document.addEventListener('DOMContentLoaded', () => {
       grainAmount: 0.1,
       grainScale: 2.0,
       grainAnimated: false,
-      contrast: 1.5,
-      gamma: 1.0,
-      saturation: 1.0,
+      contrast: 0.8,
+      gamma: 0.7,
+      saturation: 1.2,
       centerX: 0.0,
       centerY: 0.0,
       zoom: 0.9,
-      color1: '#000000',
-      color2: '#2e2e2e',
-      color3: '#555555'
+      color1: '#4a90e2',
+      color2: '#ffa500',
+      color3: '#ffdd00'
     });
   }
 });
