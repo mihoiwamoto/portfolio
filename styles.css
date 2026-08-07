@@ -93,6 +93,7 @@ h2 {
     letter-spacing: 0.05em;
     color: #ffffff;
     margin-bottom: 0px;
+    text-align: left;
 }
 
 .subtitle {
@@ -346,7 +347,6 @@ h2 {
 /* Portfolio Section */
 .portfolio-section {
     background-color: transparent;
-    text-align: center;
 }
 
 .portfolio-section h2 {
@@ -468,7 +468,6 @@ h2 {
 /* Gallery Section */
 .gallery-section {
     background-color: transparent;
-    text-align: center;
 }
 
 .gallery-section h2 {
@@ -596,7 +595,6 @@ h2 {
 .contact-section {
     background-color: transparent;
     color: #ffffff;
-    text-align: center;
 }
 
 .contact-content {
