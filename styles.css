@@ -677,7 +677,21 @@ h2 {
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.85);
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus,
+.form-group input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(30, 30, 30, 0.7) inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.form-group input:-webkit-autofill::placeholder {
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff !important;
 }
 
 .form-group textarea {
