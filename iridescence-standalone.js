@@ -1,47 +1,46 @@
 // Standalone Iridescence Component - Pure WebGL Implementation
+// Using exact shader from React Bits for authentic iridescent effect
+
+const vertexShader = `
+attribute vec2 uv;
+attribute vec2 position;
+
+varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+  gl_Position = vec4(position, 0, 1);
+}
+`;
+
 const fragmentShader = `
 precision highp float;
-uniform vec2 iResolution;
-uniform float iTime;
+
+uniform float uTime;
 uniform vec3 uColor;
+uniform vec3 uResolution;
 uniform vec2 uMouse;
 uniform float uAmplitude;
 uniform float uSpeed;
 
+varying vec2 vUv;
+
 void main() {
-  vec2 uv = gl_FragCoord.xy / iResolution.xy;
-  vec2 p = uv * 2.0 - 1.0;
-  p *= 2.0;
-  p *= iResolution.xy / min(iResolution.x, iResolution.y);
+  float mr = min(uResolution.x, uResolution.y);
+  vec2 uv = (vUv.xy * 2.0 - 1.0) * uResolution.xy / mr;
 
-  p += (uMouse - vec2(0.5)) * uAmplitude;
+  uv += (uMouse - vec2(0.5)) * uAmplitude;
 
-  float t = iTime * 0.5;
-  float d = -t * 0.5;
+  float d = -uTime * 0.5 * uSpeed;
   float a = 0.0;
   for (float i = 0.0; i < 8.0; ++i) {
-    a += cos(i - d - a * p.x);
-    d += sin(p.y * i + a);
+    a += cos(i - d - a * uv.x);
+    d += sin(uv.y * i + a);
   }
-  d += t * 0.5;
-
-  vec3 col = vec3(
-    sin(p.x + t * 0.5) * 0.5 + 0.5,
-    cos(p.y + t * 0.3) * 0.5 + 0.5,
-    sin((p.x + p.y) + t * 0.4) * 0.5 + 0.5
-  );
-
-  col *= uColor;
-  col = clamp(col, 0.0, 1.0);
-
+  d += uTime * 0.5 * uSpeed;
+  vec3 col = vec3(cos(uv * vec2(d, a)) * 0.6 + 0.4, cos(a + d) * 0.5 + 0.5);
+  col = cos(col * cos(vec3(d, a, 2.5)) * 0.5 + 0.5) * uColor;
   gl_FragColor = vec4(col, 1.0);
-}
-`;
-
-const vertexShader = `
-attribute vec2 position;
-void main() {
-  gl_Position = vec4(position, 0.0, 1.0);
 }
 `;
 
@@ -96,19 +95,31 @@ function initIridescence(containerSelector, options = {}) {
 
   gl.useProgram(program);
 
-  // Create buffer
-  const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
+  // Create buffer with position and UV coordinates
+  const vertices = new Float32Array([
+    -1, -1, 0, 0,    // bottom-left
+    1, -1, 1, 0,     // bottom-right
+    -1, 1, 0, 1,     // top-left
+    1, 1, 1, 1       // top-right
+  ]);
   const buffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
   gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
   const positionLocation = gl.getAttribLocation(program, 'position');
+  const uvLocation = gl.getAttribLocation(program, 'uv');
+
   gl.enableVertexAttribArray(positionLocation);
-  gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(uvLocation);
+
+  // Position attribute
+  gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 16, 0);
+  // UV attribute
+  gl.vertexAttribPointer(uvLocation, 2, gl.FLOAT, false, 16, 8);
 
   // Get uniform locations
-  const timeLocation = gl.getUniformLocation(program, 'iTime');
-  const resolutionLocation = gl.getUniformLocation(program, 'iResolution');
+  const timeLocation = gl.getUniformLocation(program, 'uTime');
+  const resolutionLocation = gl.getUniformLocation(program, 'uResolution');
   const colorLocation = gl.getUniformLocation(program, 'uColor');
   const mouseLocation = gl.getUniformLocation(program, 'uMouse');
   const amplitudeLocation = gl.getUniformLocation(program, 'uAmplitude');
@@ -122,7 +133,8 @@ function initIridescence(containerSelector, options = {}) {
     canvas.width = w;
     canvas.height = h;
     gl.viewport(0, 0, w, h);
-    gl.uniform2f(resolutionLocation, w, h);
+    // uResolution is vec3: (width, height, aspect ratio)
+    gl.uniform3f(resolutionLocation, w, h, w / h);
   }
 
   function handleMouseMove(e) {
