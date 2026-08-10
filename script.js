@@ -103,3 +103,30 @@ if (heroTitle) {
     }
 }
 
+// Portfolio card description expansion
+function setupDescriptionListeners() {
+    document.querySelectorAll('.portfolio-card-description').forEach(description => {
+        description.addEventListener('click', function(e) {
+            const isExpanded = this.classList.toggle('expanded');
+
+            // Apply styles directly to ensure they work
+            if (isExpanded) {
+                this.style.display = 'block';
+                this.style.webkitLineClamp = 'unset';
+                this.style.overflow = 'visible';
+            } else {
+                this.style.display = '';
+                this.style.webkitLineClamp = '';
+                this.style.overflow = '';
+            }
+        });
+    });
+}
+
+// Handle both DOMContentLoaded and already-loaded cases
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupDescriptionListeners);
+} else {
+    setupDescriptionListeners();
+}
+

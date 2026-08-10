@@ -434,6 +434,18 @@ h2 {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-card-description:hover {
+    opacity: 0.9;
+}
+
+.portfolio-card-description.expanded {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
 }
 
 .portfolio-card-tags {
@@ -676,7 +688,13 @@ h2 {
 }
 
 .form-group input::placeholder,
-.form-group textarea::placeholder {
+.form-group textarea::placeholder,
+.form-group input::-webkit-input-placeholder,
+.form-group textarea::-webkit-input-placeholder,
+.form-group input::-moz-placeholder,
+.form-group textarea::-moz-placeholder,
+.form-group input:-ms-input-placeholder,
+.form-group textarea:-ms-input-placeholder {
     color: #ffffff !important;
     opacity: 1 !important;
 }
