@@ -11,6 +11,20 @@ fixGalleryPaths();
 window.addEventListener('load', fixGalleryPaths);
 document.addEventListener('DOMContentLoaded', fixGalleryPaths);
 
+// Apply white background to form inputs
+function applyFormStyles() {
+    document.querySelectorAll('.form-group input, .form-group textarea').forEach(elem => {
+        elem.style.backgroundColor = '#ffffff';
+        elem.style.color = '#000000';
+        elem.style.borderColor = 'rgba(0, 0, 0, 0.2)';
+    });
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyFormStyles);
+} else {
+    applyFormStyles();
+}
+
 // Portfolio section initialized
 // (ScrollStack implementation removed - using grid layout instead)
 
