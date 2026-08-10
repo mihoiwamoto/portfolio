@@ -421,7 +421,36 @@ h2 {
     font-size: 0.95rem;
     line-height: 1.6;
     font-weight: 300;
+    margin-bottom: 15px;
+}
+
+.portfolio-card-description {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    font-weight: 300;
     margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.portfolio-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.portfolio-tag {
+    display: inline-block;
+    background-color: rgba(2, 180, 219, 0.15);
+    color: #02b4db;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(2, 180, 219, 0.3);
 }
 
 .portfolio-card-link {
