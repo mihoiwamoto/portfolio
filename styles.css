@@ -126,11 +126,11 @@ h2 {
 
 /* Submit Button Styling */
 .btn.submit-btn {
-    background-color: rgba(0, 0, 0, 0.4) !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
     border-radius: 5px;
 }
 
@@ -177,6 +177,8 @@ h2 {
     margin-bottom: 32px;
     color: #ffffff;
     font-style: italic;
+    overflow: visible;
+    white-space: normal;
 }
 
 .hero-description {
@@ -307,14 +309,14 @@ h2 {
 }
 
 .skill-item {
-    padding: 6px 14px;
+    padding: 8px 16px;
     font-size: 12px;
     letter-spacing: 0.05em;
-    font-weight: 400;
-    color: #ffffff;
-    background-color: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    font-weight: 600;
+    color: #ffffff !important;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
@@ -347,6 +349,7 @@ h2 {
 /* Portfolio Section */
 .portfolio-section {
     background-color: transparent;
+    margin-top: 120px;
 }
 
 .portfolio-section h2 {
@@ -367,18 +370,43 @@ h2 {
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
     margin-top: 60px;
 }
 
 .portfolio-card {
-    background-color: transparent;
-    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
     overflow: hidden;
     box-shadow: none;
-    transition: transform 0.3s ease;
+    padding: 24px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     text-align: left;
+}
+
+.portfolio-card:nth-child(1) {
+    background-color: rgba(144, 202, 165, 0.15);
+}
+
+.portfolio-card:nth-child(2) {
+    background-color: rgba(180, 150, 200, 0.15);
+}
+
+.portfolio-card:nth-child(3) {
+    background-color: rgba(150, 190, 220, 0.15);
+}
+
+.portfolio-card:nth-child(4) {
+    background-color: rgba(220, 190, 150, 0.15);
+}
+
+.portfolio-card:nth-child(5) {
+    background-color: rgba(200, 165, 180, 0.15);
+}
+
+.portfolio-card:nth-child(6) {
+    background-color: rgba(165, 195, 210, 0.15);
 }
 
 .portfolio-card:hover {
@@ -386,12 +414,12 @@ h2 {
 }
 
 .portfolio-card-image {
-    width: 100%;
-    height: 220px;
+    width: calc(100% + 48px);
+    height: 200px;
     overflow: hidden;
-    background-color: #e0e0e0;
+    background-color: transparent;
     border-radius: 12px;
-    margin-bottom: 20px;
+    margin: 20px -24px 20px -24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -457,12 +485,16 @@ h2 {
 
 .portfolio-tag {
     display: inline-block;
-    background-color: rgba(2, 180, 219, 0.15);
-    color: #02b4db;
-    padding: 4px 12px;
-    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 30px;
     font-size: 0.8rem;
-    border: 1px solid rgba(2, 180, 219, 0.3);
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    letter-spacing: 0.05em;
 }
 
 .portfolio-card-link {
@@ -634,8 +666,11 @@ h2 {
 
 /* Contact Section */
 .contact-section {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #ffffff;
+    margin-top: 120px;
 }
 
 .contact-content {
@@ -672,9 +707,11 @@ h2 {
 .form-group textarea {
     width: 100%;
     padding: 14px 18px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #000000;
     font-size: 15px;
     font-family: inherit;
@@ -695,7 +732,7 @@ h2 {
 .form-group textarea::-moz-placeholder,
 .form-group input:-ms-input-placeholder,
 .form-group textarea:-ms-input-placeholder {
-    color: #ffffff !important;
+    color: rgba(255, 255, 255, 0.4) !important;
     opacity: 1 !important;
 }
 
@@ -731,7 +768,9 @@ h2 {
 
 /* Footer */
 .footer {
-    background-color: rgba(20, 20, 20, 0.8);
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #ffffff;
     text-align: center;
     padding: 30px 20px;
@@ -812,6 +851,7 @@ h2 {
     .hero-card {
         padding: 40px 20px;
         max-width: 100%;
+        overflow: visible;
     }
 
     .hero-title {
